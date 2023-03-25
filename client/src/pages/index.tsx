@@ -1,8 +1,8 @@
-import ModalAuth from "@/components/modals/auth";
-import PageLayout from "@/components/pageLayout";
-import { LOGIN, REGISTER } from "@/const";
-import { useState } from "react";
-import { Button } from "react-bootstrap";
+import ModalAuth from "@/components/modals/auth"
+import PageLayout from "@/components/pageLayout"
+import { LOGIN, REGISTER } from "@/const"
+import { useState } from "react"
+import { Button } from "react-bootstrap"
 
 export default function Home() {
   const [openModalAuth, setOpenModalAuth] = useState<boolean>(false)
@@ -15,8 +15,8 @@ export default function Home() {
 
   return (
     <PageLayout noContainer>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light px-5">
-        <div className="container-fluid">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <div className="container">
           <button
             className="navbar-toggler"
             type="button"
@@ -49,12 +49,12 @@ export default function Home() {
                 </a>
               </li>
             </ul>
-            <Button variant="outline-success" onClick={() => toggleModalAuth(REGISTER)}>Đăng ký</Button>
-            <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Đăng nhập</Button>
-
+            <Button variant="outline-success" onClick={() => toggleModalAuth(REGISTER)}>Register</Button>
+            <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Login</Button>
           </div>
         </div>
       </nav>
+
       <ModalAuth show={openModalAuth} handleClose={() => setOpenModalAuth(false)} typeModal={typeModal} />
     </PageLayout>
   );
