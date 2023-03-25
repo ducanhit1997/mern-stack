@@ -4,13 +4,13 @@ export const PageContext = createContext({})
 export const usePageContext = () => useContext(PageContext)
 
 type PageLayoutProps = {
-  context?: {}
+  context: object
   children: ReactNode,
   noContainer?: boolean
 };
 
 const PageLayout: FC<PageLayoutProps> = (props) => {
-  const { context = {}, noContainer, children } = props
+  const { context, noContainer, children } = props
 
   return (
     <PageContext.Provider value={context}>

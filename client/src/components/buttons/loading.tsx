@@ -9,7 +9,6 @@ type ButtonLoadingProps = {
   variant?: string
 };
 
-
 const ButtonLoading: FC<ButtonLoadingProps> = (props) => {
   const { loading, className, label, variant } = props
 

@@ -4,8 +4,8 @@ import { LOGIN } from "@/const"
 import Form from 'react-bootstrap/Form'
 import { useForm } from 'react-hook-form'
 import isUndefined from 'lodash/isUndefined'
-import ButtonLoading from "../buttons/loading"
 import styles from "./auth.module.scss";
+import ButtonLoading from "../buttons/loading"
 
 type ModalAuthProps = {
   show: boolean
