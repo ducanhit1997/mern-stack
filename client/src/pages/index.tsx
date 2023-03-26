@@ -55,7 +55,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <ModalAuth show={openModalAuth} handleClose={() => setOpenModalAuth(false)} typeModal={typeModal} />
+      <ModalAuth show={openModalAuth} handleClose={() => setOpenModalAuth(false)} typeModal={typeModal} setTypeModal={setTypeModal} />
     </PageLayout>
   );
 }

@@ -1,10 +1,11 @@
 import { createContext, useContext, FC, ReactNode } from "react"
 
-export const PageContext = createContext({})
+export const PageContext = createContext<object | undefined>(undefined)
+
 export const usePageContext = () => useContext(PageContext)
 
 type PageLayoutProps = {
-  context: object
+  context?: object
   children: ReactNode,
   noContainer?: boolean
 };
