@@ -1,59 +1,54 @@
 import ModalAuth from "@/components/modals/auth"
 import PageLayout from "@/components/pageLayout"
-import { LOGIN, REGISTER } from "@/const"
+import { languages, LOGIN, REGISTER } from "@/const"
 import { useState } from "react"
-import { Button } from "react-bootstrap"
+import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
+import { useTranslation } from "react-i18next"
 
 export default function Home() {
   const [openModalAuth, setOpenModalAuth] = useState<boolean>(false)
   const [typeModal, setTypeModal] = useState<string>()
+  const { i18n, t } = useTranslation()
 
   const toggleModalAuth = (type: string) => {
     setTypeModal(type)
     setOpenModalAuth(!openModalAuth)
   }
 
+  const onChangeLanguage = (id: string) => {
+    console.log(id)
+    i18n.changeLanguage(id)
+  }
+
   return (
     <PageLayout noContainer>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <a className="navbar-brand" href="#">
-            TGDĐ
-          </a>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
-                  Home
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  Link
-                </a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled" href="#" aria-disabled="true">
-                  Disabled
-                </a>
-              </li>
-            </ul>
-            <Button variant="outline-success" onClick={() => toggleModalAuth(REGISTER)}>Register</Button>
-            <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Login</Button>
-          </div>
-        </div>
-      </nav>
+      <Navbar bg="light" expand="lg">
+        <Container>
+          <Navbar.Toggle aria-controls="navbarTogglerDemo03" />
+          <Navbar.Brand href="#">TGDĐ</Navbar.Brand>
+          <Navbar.Collapse id="navbarTogglerDemo03">
+            <Nav className="me-auto mb-2 mb-lg-0">
+              <Nav.Link href="#" active>{t('login')}</Nav.Link>
+              <Nav.Link href="#">Link</Nav.Link>
+              <Nav.Link href="#" disabled>Disabled</Nav.Link>
+            </Nav>
+            <Nav className="ms-auto mb-2 mb-lg-0">
+              <Dropdown>
+                <Dropdown.Toggle id="dropdown-basic">
+                  Ngôn ngữ
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {languages.map((x) => (
+                    <Dropdown.Item key={x.id} onClick={() => onChangeLanguage(x.id)}>{x.name}</Dropdown.Item>
+                  ))}
+                </Dropdown.Menu>
+              </Dropdown>
+              <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(REGISTER)}>Register</Button>
+              <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Login</Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
       <ModalAuth show={openModalAuth} handleClose={() => setOpenModalAuth(false)} typeModal={typeModal} setTypeModal={setTypeModal} />
     </PageLayout>

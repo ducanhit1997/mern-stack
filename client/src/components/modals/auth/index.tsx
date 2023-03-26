@@ -6,12 +6,13 @@ import { useForm } from "react-hook-form"
 import ButtonLoading from "@/components/buttons/loading"
 import LoginForm from "./loginForm"
 import RegisterForm from "./registerForm"
+import { useTranslation } from "react-i18next"
 
 type ModalAuthProps = {
   show: boolean;
   handleClose: () => void;
   typeModal: string | undefined;
-  setTypeModal: () => void;
+  setTypeModal: (type: string) => void;
 };
 
 type DataSubmitLogin = {
@@ -26,8 +27,9 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<DataSubmitLogin>();
+  } = useForm<DataSubmitLogin>()
   const [loading, setLoading] = useState<boolean>(false)
+  const { t } = useTranslation()
 
   const onSubmit = (data: DataSubmitLogin) => {
     setLoading(true);
@@ -47,7 +49,7 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title className="text-center">
-          {typeModal === LOGIN ? "Login" : "Register"}
+          {typeModal === LOGIN ? t('login') : "Register"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>

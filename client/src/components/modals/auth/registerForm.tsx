@@ -66,7 +66,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         />
         {errors.password && (
           <Form.Control.Feedback type="invalid">
-            Password is required{" "}
+            Password is required
           </Form.Control.Feedback>
         )}
       </Form.Group>
