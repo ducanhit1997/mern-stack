@@ -4,10 +4,10 @@ export const REGISTER = 'REGISTER'
 export const languages = [
   {
     id: 'vi',
-    name: 'Tiếng Việt'
+    name: 'Vietnamese'
   },
   {
     id: 'en',
-    name: 'Tiếng Anh'
+    name: 'English'
   }
 ]

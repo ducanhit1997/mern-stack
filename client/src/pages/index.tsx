@@ -2,22 +2,28 @@ import ModalAuth from "@/components/modals/auth"
 import PageLayout from "@/components/pageLayout"
 import { languages, LOGIN, REGISTER } from "@/const"
 import { useState } from "react"
-import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
-import { useTranslation } from "react-i18next"
+import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap'
+import { useTranslation } from "next-i18next"
+
+type LanguageType = {
+  id: string,
+  name: string
+}
 
 export default function Home() {
   const [openModalAuth, setOpenModalAuth] = useState<boolean>(false)
   const [typeModal, setTypeModal] = useState<string>()
-  const { i18n, t } = useTranslation()
+  const [currentLanguage, setCurrentLanguage] = useState<string>('English')
+  const { i18n } = useTranslation()
 
   const toggleModalAuth = (type: string) => {
     setTypeModal(type)
     setOpenModalAuth(!openModalAuth)
   }
 
-  const onChangeLanguage = (id: string) => {
-    console.log(id)
-    i18n.changeLanguage(id)
+  const onChangeLanguage = (data: LanguageType) => {
+    setCurrentLanguage(data.name)
+    i18n.changeLanguage(data.id)
   }
 
   return (
@@ -28,18 +34,18 @@ export default function Home() {
           <Navbar.Brand href="#">TGDĐ</Navbar.Brand>
           <Navbar.Collapse id="navbarTogglerDemo03">
             <Nav className="me-auto mb-2 mb-lg-0">
-              <Nav.Link href="#" active>{t('login')}</Nav.Link>
+              <Nav.Link href="#" active>Home</Nav.Link>
               <Nav.Link href="#">Link</Nav.Link>
               <Nav.Link href="#" disabled>Disabled</Nav.Link>
             </Nav>
             <Nav className="ms-auto mb-2 mb-lg-0">
               <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
-                  Ngôn ngữ
+                  {currentLanguage}
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {languages.map((x) => (
-                    <Dropdown.Item key={x.id} onClick={() => onChangeLanguage(x.id)}>{x.name}</Dropdown.Item>
+                    <Dropdown.Item key={x.id} onClick={() => onChangeLanguage(x)}>{x.name}</Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
               </Dropdown>

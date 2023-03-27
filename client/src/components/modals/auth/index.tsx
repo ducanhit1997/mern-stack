@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form"
 import ButtonLoading from "@/components/buttons/loading"
 import LoginForm from "./loginForm"
 import RegisterForm from "./registerForm"
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "next-i18next";
 
 type ModalAuthProps = {
   show: boolean;
