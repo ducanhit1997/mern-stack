@@ -4,6 +4,7 @@ import isUndefined from "lodash/isUndefined";
 import styles from "./auth.module.scss";
 import { REGISTER } from "@/const";
 import Feedback from "@/components/feedback";
+import { useSelector } from "react-redux";
 
 type LoginFormProps = {
   errors: any;
@@ -13,6 +14,7 @@ type LoginFormProps = {
 
 const LoginForm: FC<LoginFormProps> = (props) => {
   const { errors, register, setTypeModal } = props;
+  //const { data } = useSelector((state) => state.user);
 
   return (
     <>
