@@ -1,14 +1,14 @@
-import { FC } from "react"
-import { Form } from "react-bootstrap"
+import { FC } from "react";
+import { Form } from "react-bootstrap";
 
 type FeedbackProps = {
-  name: String
-  errorData: any
+  name: String;
+  errorData: any;
 }
 
 const Feedback: FC<FeedbackProps> = (props) => {
-  const { name, errorData } = props
-  if (!errorData) return <></>
+  const { name, errorData } = props;
+  if (!errorData) return <></>;
   return (
     <>
       {errorData.type === 'required' &&
@@ -22,6 +22,7 @@ const Feedback: FC<FeedbackProps> = (props) => {
         </Form.Control.Feedback>
       }
     </>
-  )
+  );
 }
-export default Feedback
+
+export default Feedback;

@@ -9,11 +9,11 @@ type RegisterFormProps = {
   errors: any
   register: any
   watch: any
-  setTypeModal: (type: string) => void
+  setTypeModal: (type: string) => void;
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
-  const { errors, register, watch, setTypeModal } = props
+  const { errors, register, watch, setTypeModal } = props;
 
   return (
     <>
@@ -84,7 +84,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
         </small>
       </Form.Group>
     </>
-  )
+  );
 }
 
 export default RegisterForm;

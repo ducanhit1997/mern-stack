@@ -1,18 +1,18 @@
-import { FC } from "react"
-import Form from "react-bootstrap/Form"
-import isUndefined from "lodash/isUndefined"
-import styles from "./auth.module.scss"
-import { REGISTER } from "@/const"
-import Feedback from "@/components/feedback"
+import { FC } from "react";
+import Form from "react-bootstrap/Form";
+import isUndefined from "lodash/isUndefined";
+import styles from "./auth.module.scss";
+import { REGISTER } from "@/const";
+import Feedback from "@/components/feedback";
 
 type LoginFormProps = {
-  errors: any
-  register: any
-  setTypeModal: (type: string) => void
+  errors: any;
+  register: any;
+  setTypeModal: (type: string) => void;
 }
 
 const LoginForm: FC<LoginFormProps> = (props) => {
-  const { errors, register, setTypeModal } = props
+  const { errors, register, setTypeModal } = props;
 
   return (
     <>
@@ -49,4 +49,4 @@ const LoginForm: FC<LoginFormProps> = (props) => {
   )
 }
 
-export default LoginForm
+export default LoginForm;
