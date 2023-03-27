@@ -8,7 +8,7 @@ type PageLayoutProps = {
   context?: object
   children: ReactNode,
   noContainer?: boolean
-};
+}
 
 const PageLayout: FC<PageLayoutProps> = (props) => {
   const { context, noContainer, children } = props
@@ -17,8 +17,8 @@ const PageLayout: FC<PageLayoutProps> = (props) => {
     <PageContext.Provider value={context}>
       <div className={!noContainer ? 'container' : ''}>{children}</div>
     </PageContext.Provider>
-  );
-};
+  )
+}
 
 export default PageLayout
 

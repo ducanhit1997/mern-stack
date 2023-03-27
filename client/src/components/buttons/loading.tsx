@@ -7,7 +7,7 @@ type ButtonLoadingProps = {
   label?: string
   className?: string
   variant?: string
-};
+}
 
 const ButtonLoading: FC<ButtonLoadingProps> = (props) => {
   const { loading, className, label, variant } = props
@@ -17,8 +17,8 @@ const ButtonLoading: FC<ButtonLoadingProps> = (props) => {
       {loading && <Spinner animation="border" size="sm" />}
       <span className="ms-1">{label}</span>
     </Button>
-  );
-};
+  )
+}
 
 export default ButtonLoading
 

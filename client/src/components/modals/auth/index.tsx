@@ -6,19 +6,19 @@ import { useForm } from "react-hook-form"
 import ButtonLoading from "@/components/buttons/loading"
 import LoginForm from "./loginForm"
 import RegisterForm from "./registerForm"
-import { useTranslation } from "next-i18next";
+import { useTranslation } from "next-i18next"
 
 type ModalAuthProps = {
   show: boolean;
   handleClose: () => void;
   typeModal: string | undefined;
   setTypeModal: (type: string) => void;
-};
+}
 
 type DataSubmitLogin = {
   username: string;
   password: string;
-};
+}
 
 const ModalAuth: FC<ModalAuthProps> = (props) => {
   const { show, handleClose, typeModal, setTypeModal } = props
@@ -33,18 +33,18 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
   const { t } = useTranslation()
 
   const onSubmit = (data: DataSubmitLogin) => {
-    setLoading(true);
+    setLoading(true)
     // set time out to loading ^^
     setTimeout(() => {
-      console.log(data);
-      console.log(typeModal);
-      setLoading(false);
-    }, 2000);
+      console.log(data)
+      console.log(typeModal)
+      setLoading(false)
+    }, 2000)
   };
 
   useEffect(() => {
-    if (show) reset();
-  }, [reset, show, typeModal]);
+    if (show) reset()
+  }, [reset, show, typeModal])
 
   return (
     <Modal show={show} onHide={handleClose}>
@@ -73,6 +73,7 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
-export default ModalAuth;
+  )
+}
+
+export default ModalAuth

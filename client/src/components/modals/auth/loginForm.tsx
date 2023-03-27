@@ -13,6 +13,7 @@ type LoginFormProps = {
 
 const LoginForm: FC<LoginFormProps> = (props) => {
   const { errors, register, setTypeModal } = props
+
   return (
     <>
       <Form.Group className="mb-1">
@@ -45,7 +46,7 @@ const LoginForm: FC<LoginFormProps> = (props) => {
         </small>
       </Form.Group>
     </>
-  );
-};
+  )
+}
 
 export default LoginForm

@@ -1,11 +1,12 @@
 import { FC } from "react"
 import { Form } from "react-bootstrap"
 
-type RequiredProps = {
+type FeedbackProps = {
   name: String,
   errorData: any
 }
-const Feedback: FC<RequiredProps> = (props) => {
+
+const Feedback: FC<FeedbackProps> = (props) => {
   const { name, errorData } = props
   if (!errorData) return <></>
   return (
