@@ -7,6 +7,7 @@ import ButtonLoading from "@/components/buttons/loading";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import { useTranslation } from "next-i18next";
+import service from '@/services/index';
 
 type ModalAuthProps = {
   show: boolean;
