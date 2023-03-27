@@ -18,7 +18,7 @@ const Feedback: FC<FeedbackProps> = (props) => {
           {name} is required!
         </Form.Control.Feedback>
       }
-      {(errorData.type === 'validate' || errorData.type === 'pattern') &&
+      {(errorData.type === 'validate' || errorData.type === 'pattern' || errorData.type === 'minLength' || errorData.type === 'maxLength') &&
         <Form.Control.Feedback type="invalid">
           {errorData.message}!
         </Form.Control.Feedback>

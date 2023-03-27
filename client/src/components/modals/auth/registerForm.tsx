@@ -2,7 +2,7 @@ import { FC } from "react";
 import Form from "react-bootstrap/Form";
 import isUndefined from "lodash/isUndefined";
 import styles from "./auth.module.scss";
-import { LOGIN, patternEmail } from "@/const";
+import { LOGIN, patternEmail, patternPassword } from "@/const";
 import Feedback from "@/components/feedback";
 
 type RegisterFormProps = {
@@ -58,7 +58,16 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           type="password"
           isInvalid={!isUndefined(errors.password)}
           placeholder="Enter password"
-          {...register("password", { required: true })}
+          {...register("password", {
+            minLength: {
+              value: 6,
+              message: "Password must be at least 6 characters"
+            },
+            required: true, pattern: {
+              value: patternPassword,
+              message: "Password must contain uppercase, lowercase, special character and number"
+            }
+          })}
         />
         <Feedback name="Password" errorData={errors.password} />
       </Form.Group>
