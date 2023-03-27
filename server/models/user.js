@@ -2,11 +2,11 @@ const mongoose = require('mongoose'); // Erase if already required
 
 // Declare the Schema of the Mongo model
 var userSchema = new mongoose.Schema({
-  firstname: {
+  username: {
     type: String,
     required: true,
   },
-  lastname: {
+  fullname: {
     type: String,
     required: true,
   },
@@ -17,7 +17,6 @@ var userSchema = new mongoose.Schema({
   },
   mobile: {
     type: String,
-    required: true,
     unique: true,
   },
   password: {
@@ -28,9 +27,9 @@ var userSchema = new mongoose.Schema({
     type: String,
     default: 'user',
   },
-  cart: {
-    type: Array,
-    default: []
+  isactive: {
+    type: Boolean,
+    default: true,
   }
 });
 

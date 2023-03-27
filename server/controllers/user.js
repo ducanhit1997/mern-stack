@@ -2,8 +2,8 @@ const User = require('../models/user')
 const asyncHandler = require('express-async-handler')
 
 const register = asyncHandler(async(req, res) => {
-  const { email, password, firstname, lastname } = req.body
-  if (!email || !password || !firstname || !lastname) {
+  const { email, password, fullname } = req.body
+  if (!email || !password || !fullname) {
     return res.status(400).json({
       success: false,
       message: 'Missing input'
