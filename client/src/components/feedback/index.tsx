@@ -8,17 +8,19 @@ type FeedbackProps = {
 
 const Feedback: FC<FeedbackProps> = (props) => {
   const { name, errorData } = props;
+
   if (!errorData) return <></>;
+
   return (
     <>
       {errorData.type === 'required' &&
         <Form.Control.Feedback type="invalid">
-          {name} is required
+          {name} is required!
         </Form.Control.Feedback>
       }
-      {errorData.type === 'validate' &&
+      {(errorData.type === 'validate' || errorData.type === 'pattern') &&
         <Form.Control.Feedback type="invalid">
-          {errorData.message}
+          {errorData.message}!
         </Form.Control.Feedback>
       }
     </>

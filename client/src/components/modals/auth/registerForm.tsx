@@ -2,7 +2,7 @@ import { FC } from "react";
 import Form from "react-bootstrap/Form";
 import isUndefined from "lodash/isUndefined";
 import styles from "./auth.module.scss";
-import { LOGIN } from "@/const";
+import { LOGIN, patternEmail } from "@/const";
 import Feedback from "@/components/feedback";
 
 type RegisterFormProps = {
@@ -43,7 +43,12 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           isInvalid={!isUndefined(errors.email)}
           type="text"
           placeholder="Enter your email"
-          {...register("email", { required: true })}
+          {...register("email", {
+            required: true, pattern: {
+              value: patternEmail,
+              message: "Email is invalid!"
+            }
+          })}
         />
         <Feedback name="Email" errorData={errors.email} />
       </Form.Group>
@@ -60,7 +65,7 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
       <Form.Group className="mb-2">
         <Form.Label>Confirm password</Form.Label>
         <Form.Control
-          type="confirmPassword"
+          type="password"
           isInvalid={!isUndefined(errors.confirmPassword)}
           placeholder="Enter password"
           {...register("confirmPassword", {
