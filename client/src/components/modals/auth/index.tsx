@@ -26,6 +26,7 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<DataSubmitLogin>()
   const [loading, setLoading] = useState<boolean>(false)
@@ -65,6 +66,7 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
               errors={errors}
               register={register}
               setTypeModal={setTypeModal}
+              watch={watch}
             />
           }
           <ButtonLoading loading={loading} className="w-100" />

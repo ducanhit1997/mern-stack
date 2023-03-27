@@ -1,17 +1,22 @@
-import { FC } from "react"
-import Form from "react-bootstrap/Form"
-import isUndefined from "lodash/isUndefined"
-import styles from "./auth.module.scss"
-import { LOGIN } from "@/const"
+import { FC } from "react";
+import Form from "react-bootstrap/Form";
+import isUndefined from "lodash/isUndefined";
+import styles from "./auth.module.scss";
+import { LOGIN } from "@/const";
+import Feedback from "@/components/feedback";
 
 type RegisterFormProps = {
   errors: any;
   register: any;
+  watch: any;
   setTypeModal: (type: string) => void;
 };
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {
-  const { errors, register, setTypeModal } = props;
+  const { errors, register, watch, setTypeModal } = props;
+
+  console.log(errors.confirmPassword);
+
   return (
     <>
       <Form.Group className="mb-1">
@@ -20,13 +25,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           isInvalid={!isUndefined(errors.username)}
           type="text"
           placeholder="Enter username"
-          {...register("username", { required: true, maxLength: 20 })}
+          {...register("username", { required: true })}
         />
-        {errors.username && (
-          <Form.Control.Feedback type="invalid">
-            Username is required
-          </Form.Control.Feedback>
-        )}
+        <Feedback name="Username" errorData={errors.username} />
       </Form.Group>
       <Form.Group className="mb-1">
         <Form.Label>Full name</Form.Label>
@@ -34,13 +35,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           isInvalid={!isUndefined(errors.fullname)}
           type="text"
           placeholder="Enter full name"
-          {...register("fullname", { required: true, maxLength: 20 })}
+          {...register("fullname", { required: true })}
         />
-        {errors.fullname && (
-          <Form.Control.Feedback type="invalid">
-            Fullname is required
-          </Form.Control.Feedback>
-        )}
+        <Feedback name="Full name" errorData={errors.fullname} />
       </Form.Group>
       <Form.Group className="mb-1">
         <Form.Label>Email</Form.Label>
@@ -48,13 +45,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           isInvalid={!isUndefined(errors.email)}
           type="text"
           placeholder="Enter your email"
-          {...register("email", { required: true, maxLength: 20 })}
+          {...register("email", { required: true })}
         />
-        {errors.email && (
-          <Form.Control.Feedback type="invalid">
-            Email is required
-          </Form.Control.Feedback>
-        )}
+        <Feedback name="Email" errorData={errors.email} />
       </Form.Group>
       <Form.Group className="mb-2">
         <Form.Label>Password</Form.Label>
@@ -62,13 +55,9 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           type="password"
           isInvalid={!isUndefined(errors.password)}
           placeholder="Enter password"
-          {...register("password", { required: true, maxLength: 20 })}
+          {...register("password", { required: true })}
         />
-        {errors.password && (
-          <Form.Control.Feedback type="invalid">
-            Password is required
-          </Form.Control.Feedback>
-        )}
+        <Feedback name="Password" errorData={errors.password} />
       </Form.Group>
       <Form.Group className="mb-2">
         <Form.Label>Confirm password</Form.Label>
@@ -76,13 +65,16 @@ const RegisterForm: FC<RegisterFormProps> = (props) => {
           type="confirmPassword"
           isInvalid={!isUndefined(errors.confirmPassword)}
           placeholder="Enter password"
-          {...register("confirmPassword", { required: true, maxLength: 20 })}
+          {...register("confirmPassword", {
+            required: true,
+            validate: (val: string) => {
+              if (watch("password") != val) {
+                return "Your password do not match";
+              }
+            },
+          })}
         />
-        {errors.confirmPassword && (
-          <Form.Control.Feedback type="invalid">
-            Confirm password is required{" "}
-          </Form.Control.Feedback>
-        )}
+        <Feedback name="Confirm password" errorData={errors.confirmPassword} />
       </Form.Group>
       <Form.Group className="mb-2">
         <small>Already have an account?</small>
