@@ -14,7 +14,8 @@ type LoginFormProps = {
 
 const LoginForm: FC<LoginFormProps> = (props) => {
   const { errors, register, setTypeModal } = props;
-  //const { data } = useSelector((state) => state.user);
+  const { data } = useSelector((state: any) => state.user);
+  //console.log(data)
 
   return (
     <>

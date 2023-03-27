@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import user from "./reducers/user";
+import userReducer from "./reducers/user";
 
 const store = configureStore({
   reducer: {
-    user
+    user: userReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
