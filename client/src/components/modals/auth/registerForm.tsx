@@ -6,10 +6,10 @@ import { LOGIN } from "@/const";
 import Feedback from "@/components/feedback";
 
 type RegisterFormProps = {
-  errors: any;
-  register: any;
-  watch: any;
-  setTypeModal: (type: string) => void;
+  errors: any
+  register: any
+  watch: any
+  setTypeModal: (type: string) => void
 }
 
 const RegisterForm: FC<RegisterFormProps> = (props) => {

@@ -6,7 +6,7 @@ export const usePageContext = () => useContext(PageContext)
 
 type PageLayoutProps = {
   context?: object
-  children: ReactNode,
+  children: ReactNode
   noContainer?: boolean
 }
 

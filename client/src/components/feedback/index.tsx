@@ -2,7 +2,7 @@ import { FC } from "react"
 import { Form } from "react-bootstrap"
 
 type FeedbackProps = {
-  name: String,
+  name: String
   errorData: any
 }
 

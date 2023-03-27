@@ -6,8 +6,8 @@ import { REGISTER } from "@/const"
 import Feedback from "@/components/feedback"
 
 type LoginFormProps = {
-  errors: any,
-  register: any,
+  errors: any
+  register: any
   setTypeModal: (type: string) => void
 }
 

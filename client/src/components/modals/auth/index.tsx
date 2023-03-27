@@ -9,10 +9,10 @@ import RegisterForm from "./registerForm"
 import { useTranslation } from "next-i18next"
 
 type ModalAuthProps = {
-  show: boolean;
-  handleClose: () => void;
-  typeModal: string | undefined;
-  setTypeModal: (type: string) => void;
+  show: boolean
+  handleClose: () => void
+  typeModal: string | undefined
+  setTypeModal: (type: string) => void
 }
 
 type DataSubmitLogin = {
