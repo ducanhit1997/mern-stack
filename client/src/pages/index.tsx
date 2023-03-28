@@ -39,7 +39,7 @@ export default function Home() {
               <Nav.Link href="#" disabled>Disabled</Nav.Link>
             </Nav>
             <Nav className="ms-auto mb-2 mb-lg-0">
-              <Dropdown>
+              {/* <Dropdown>
                 <Dropdown.Toggle id="dropdown-basic">
                   {currentLanguage}
                 </Dropdown.Toggle>
@@ -48,7 +48,7 @@ export default function Home() {
                     <Dropdown.Item key={x.id} onClick={() => onChangeLanguage(x)}>{x.name}</Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
               <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(REGISTER)}>Register</Button>
               <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Login</Button>
             </Nav>

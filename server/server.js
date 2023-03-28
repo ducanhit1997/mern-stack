@@ -5,12 +5,15 @@ require('dotenv').config()
 
 const dbConnect = require('./config/dbConnect')
 const initRoutes = require('./routers')
+const { verifyToken } = require('./middleware')
 
 const app = express()
 app.use(cors());
 
 const port = process.env.PORT
 app.use(express.json())
+
+app.use(verifyToken);
 app.use(express.urlencoded({ extended: true }))
 dbConnect()
 initRoutes(app)

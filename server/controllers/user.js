@@ -37,19 +37,16 @@ exports.signin = async (req, res) => {
         message: 'Missing input'
       })
     }
+    let passwordIsValid = false;
     const user = await User.findOne({ username });
-    if (!user) {
-      return res.status(400).send({ status: false, message: "Invalid Username" });
+    if (user) {
+      passwordIsValid = bcrypt.compareSync(
+        req.body.password,
+        user.password
+      );
     }
-    const passwordIsValid = bcrypt.compareSync(
-      req.body.password,
-      user.password
-    );
-    if (!passwordIsValid) {
-      return res.status(400).send({
-        status: false,
-        message: "Invalid Password!",
-      });
+    if (!user || !passwordIsValid) {
+      return res.status(400).send({ status: false, message: "Invalid account" });
     }
     const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: 86400 });
     return res.status(200).send({
@@ -59,6 +56,19 @@ exports.signin = async (req, res) => {
         email: user.email,
         token
       }
+    });
+  } catch (error) {
+    res.status(500).send({ status: false, message: 'Internal server error' });
+  }
+}
+
+exports.refreshToken = async (req, res) => {
+  try {
+    const { userId } = req.body
+    const token = jwt.sign({ id: userId }, 'secret', { expiresIn: 86400 });
+    return res.status(200).send({
+      status: true,
+      token
     });
   } catch (error) {
     res.status(500).send({ status: false, message: 'Internal server error' });
