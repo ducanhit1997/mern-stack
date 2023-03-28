@@ -2,11 +2,11 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 // Set the API endpoint
-const API_ENDPOINT = process.env.API_URL || '';
+// const API_ENDPOINT = 'http://localhost:5000/api';
 
 // Create a new instance of axios
 const instance = axios.create({
-  baseURL: API_ENDPOINT,
+  baseURL: 'http://localhost:5000/api/',
 });
 
 // Add a request interceptor

@@ -1,19 +1,27 @@
 import { FC, useEffect, useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { LOGIN, REGISTER } from "@/const";
+import { LOGIN } from "@/const";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
 import ButtonLoading from "@/components/buttons/loading";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import { useTranslation } from "next-i18next";
-import service from '@/services/index';
+import { registerUser } from "@/services/auth";
+import { toast } from "react-toastify";
 
 type ModalAuthProps = {
   show: boolean;
   handleClose: () => void;
   typeModal: string | undefined;
   setTypeModal: (type: string) => void;
+}
+
+type DataSubmitRegister = {
+  username: string;
+  fullname: string;
+  password: string;
+  email: string;
 }
 
 type DataSubmitLogin = {
@@ -29,18 +37,39 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
     reset,
     watch,
     formState: { errors },
-  } = useForm<DataSubmitLogin>();
+  } = useForm<DataSubmitLogin | DataSubmitRegister>();
   const [loading, setLoading] = useState<boolean>(false);
   const { t } = useTranslation();
 
-  const onSubmit = (data: DataSubmitLogin) => {
+  const onRegister = (data: DataSubmitRegister) => {
+    const payload = {
+      username: data.username,
+      fullname: data.fullname,
+      email: data.email,
+      password: data.password
+    }
+    registerUser(payload).then(res => {
+      if (res.status) {
+        toast('Register sucessfully!');
+      }
+    }).catch(error => console.log(error))
+      .finally(() => {
+        setLoading(false);
+        handleClose();
+      })
+  }
+
+  const onLogin = (data: DataSubmitLogin) => {
+    const payload = {
+      username: data.username,
+      password: data.password
+    }
+    // call api login here
+  }
+
+  const onSubmit = (data: DataSubmitLogin | DataSubmitRegister) => {
     setLoading(true);
-    // set time out to loading ^^
-    setTimeout(() => {
-      console.log(data)
-      console.log(typeModal)
-      setLoading(false)
-    }, 2000);
+    typeModal === LOGIN ? onLogin(data) : onRegister(data as DataSubmitRegister);
   }
 
   useEffect(() => {
