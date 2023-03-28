@@ -52,11 +52,12 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
       if (res.status) {
         toast('Register sucessfully!');
       }
-    }).catch(error => console.log(error))
-      .finally(() => {
-        setLoading(false);
-        handleClose();
-      })
+    })
+    .catch(error => console.log(error))
+    .finally(() => {
+      setLoading(false);
+      handleClose();
+    })
   }
 
   const onLogin = (data: DataSubmitLogin) => {
