@@ -7,7 +7,7 @@ import ButtonLoading from "@/components/buttons/loading";
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import { useTranslation } from "next-i18next";
-import { registerUser } from "@/services/auth";
+import { signIn, signUp } from "@/services/auth";
 import { toast } from "react-toastify";
 
 type ModalAuthProps = {
@@ -48,16 +48,18 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
       email: data.email,
       password: data.password
     }
-    registerUser(payload).then(res => {
+    signUp(payload).then(res => {
       if (res.status) {
         toast('Register sucessfully!');
+        handleClose();
+      } else {
+        toast(res.message);
       }
     })
-    .catch(error => console.log(error))
-    .finally(() => {
-      setLoading(false);
-      handleClose();
-    })
+      .catch(error => console.log(error))
+      .finally(() => {
+        setLoading(false);
+      })
   }
 
   const onLogin = (data: DataSubmitLogin) => {
@@ -65,7 +67,18 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
       username: data.username,
       password: data.password
     }
-    // call api login here
+    signIn(payload).then(res => {
+      if (res.status) {
+        toast('Login sucessfully!');
+        handleClose();
+      } else {
+        toast(res.message);
+      }
+    })
+      .catch(error => console.log(error))
+      .finally(() => {
+        setLoading(false);
+      })
   }
 
   const onSubmit = (data: DataSubmitLogin | DataSubmitRegister) => {

@@ -1,6 +1,6 @@
 import services from ".";
 
-export const registerUser = async (data: any) => {
+export const signUp = async (data: any) => {
   try {
     const res = await services.post('/Auth/Signup', data);
     return res;
