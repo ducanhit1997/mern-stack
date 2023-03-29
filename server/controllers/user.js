@@ -48,14 +48,10 @@ exports.signin = async (req, res) => {
     if (!user || !passwordIsValid) {
       return res.status(400).send({ status: false, message: "Invalid account" });
     }
-    const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: 86400 });
+    const token = jwt.sign({ id: user.id, fullname: user.fullname, email: user.email }, 'secret', { expiresIn: 86400 });
     return res.status(200).send({
       status: true,
-      data: {
-        username: user.username,
-        email: user.email,
-        token
-      }
+      token
     });
   } catch (error) {
     res.status(500).send({ status: false, message: 'Internal server error' });

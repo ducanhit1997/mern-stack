@@ -9,6 +9,8 @@ import RegisterForm from "./registerForm";
 import { useTranslation } from "next-i18next";
 import { signIn, signUp } from "@/services/auth";
 import { toast } from "react-toastify";
+import Cookies from "js-cookie";
+import { v4 as uuid } from 'uuid';
 
 type ModalAuthProps = {
   show: boolean;
@@ -69,8 +71,9 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
     }
     signIn(payload).then(res => {
       if (res.status) {
-        toast('Login sucessfully!');
-        handleClose();
+        Cookies.set("TOKEN_KEY", res.token);
+        localStorage.setItem('sessionUuid', uuid());
+        window.location.reload();
       } else {
         toast(res.message);
       }

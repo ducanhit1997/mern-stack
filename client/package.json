@@ -20,6 +20,8 @@
     "i18next": "^22.4.13",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-http-backend": "^2.2.0",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "next": "13.2.4",
     "next-i18next": "^13.2.2",
@@ -29,12 +31,16 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.8",
     "react-i18next": "^12.2.0",
+    "react-idle-timer": "^5.5.3",
     "react-redux": "^8.0.5",
     "react-toastify": "^9.1.2",
     "sass": "^1.60.0",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.191"
+    "@types/js-cookie": "^3.0.3",
+    "@types/lodash": "^4.14.191",
+    "@types/uuid": "^9.0.1"
   }
 }

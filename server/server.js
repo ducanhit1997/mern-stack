@@ -13,7 +13,7 @@ app.use(cors());
 const port = process.env.PORT
 app.use(express.json())
 
-app.use(verifyToken);
+// app.use(verifyToken);
 app.use(express.urlencoded({ extended: true }))
 dbConnect()
 initRoutes(app)
