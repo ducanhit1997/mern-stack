@@ -1,6 +1,6 @@
-import { FC } from "react";
-import Button from 'react-bootstrap/Button';
-import Spinner from 'react-bootstrap/Spinner';
+import { FC } from "react"
+import { Button } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 type ButtonLoadingProps = {
   loading?: boolean;
@@ -9,14 +9,19 @@ type ButtonLoadingProps = {
   variant?: string;
 }
 
+const StyledButton = styled(Button)`
+  &&& {
+    margin-top: 10px;
+  }
+`;
+
 const ButtonLoading: FC<ButtonLoadingProps> = (props) => {
-  const { loading, className, label, variant } = props;
+  const { loading, label } = props
 
   return (
-    <Button variant={variant} type="submit" disabled={loading} className={className}>
-      {loading && <Spinner animation="border" size="sm" />}
+    <StyledButton primary type="submit" loading={loading}>
       <span className="ms-1">{label}</span>
-    </Button>
+    </StyledButton>
   );
 }
 

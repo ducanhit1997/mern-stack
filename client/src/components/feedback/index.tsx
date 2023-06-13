@@ -1,10 +1,14 @@
 import { FC } from "react";
-import { Form } from "react-bootstrap";
+import styled from "styled-components";
 
 type FeedbackProps = {
   name: String;
   errorData: any;
 }
+
+const StyledFeedback = styled.span`
+  color: #db2828;
+`;
 
 const Feedback: FC<FeedbackProps> = (props) => {
   const { name, errorData } = props;
@@ -14,14 +18,14 @@ const Feedback: FC<FeedbackProps> = (props) => {
   return (
     <>
       {errorData.type === 'required' &&
-        <Form.Control.Feedback type="invalid">
+        <StyledFeedback>
           {name} is required!
-        </Form.Control.Feedback>
+        </StyledFeedback>
       }
       {(errorData.type === 'validate' || errorData.type === 'pattern' || errorData.type === 'minLength' || errorData.type === 'maxLength') &&
-        <Form.Control.Feedback type="invalid">
+        <StyledFeedback>
           {errorData.message}!
-        </Form.Control.Feedback>
+        </StyledFeedback>
       }
     </>
   );

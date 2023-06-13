@@ -1,6 +1,7 @@
 const User = require('../models/user');
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const { generateAccessToken, generateRefreshToken } = require('../middleware');
 
 exports.signup = async (req, res) => {
   try {
@@ -49,6 +50,9 @@ exports.signin = async (req, res) => {
       return res.status(400).send({ status: false, message: "Invalid account" });
     }
     const token = jwt.sign({ id: user.id, fullname: user.fullname, email: user.email }, 'secret', { expiresIn: 86400 });
+    const newRefreshToken = generateRefreshToken(user.id);
+    await User.findByIdAndUpdate(user.id, { refreshToken: newRefreshToken })
+
     return res.status(200).send({
       status: true,
       token

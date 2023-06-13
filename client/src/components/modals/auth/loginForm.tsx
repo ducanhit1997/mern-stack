@@ -1,10 +1,9 @@
 import { FC } from "react";
-import Form from "react-bootstrap/Form";
-import isUndefined from "lodash/isUndefined";
-import styles from "./auth.module.scss";
-import { REGISTER } from "@/const";
+import { FORGOT_PASSWORD, REGISTER } from "@/const";
 import Feedback from "@/components/feedback";
 import { useSelector } from "react-redux";
+import { Form } from 'semantic-ui-react'
+import styled from "styled-components";
 
 type LoginFormProps = {
   errors: any;
@@ -12,43 +11,44 @@ type LoginFormProps = {
   setTypeModal: (type: string) => void;
 }
 
+const StyledSpan = styled.span`
+  margin-left: 2px;
+  cursor: pointer;
+  color: #2185d0;
+`;
+
 const LoginForm: FC<LoginFormProps> = (props) => {
   const { errors, register, setTypeModal } = props;
   const { data } = useSelector((state: any) => state.user);
   //console.log(data)
 
   return (
-    <>
-      <Form.Group className="mb-1">
-        <Form.Label>Username</Form.Label>
-        <Form.Control
-          isInvalid={!isUndefined(errors.username)}
-          type="username"
-          placeholder="Enter username"
-          {...register("username", { required: true })}
-        />
+    <Form>
+      <Form.Field>
+        <label>Username</label>
+        <input placeholder='Username' {...register("username", { required: true })} />
         <Feedback name="Username" errorData={errors.username} />
-      </Form.Group>
-      <Form.Group className="mb-2">
-        <Form.Label>Password</Form.Label>
-        <Form.Control
-          type="password"
-          isInvalid={!isUndefined(errors.password)}
-          placeholder="Enter password"
-          {...register("password", { required: true })}
-        />
+      </Form.Field>
+      <Form.Field>
+        <label>Password</label>
+        <input placeholder='Password' type="password" {...register("password", { required: true })} />
         <Feedback name="Password" errorData={errors.password} />
-      </Form.Group>
-      <Form.Group className="mb-2">
-        <small>Do not have an account?</small>
-        <small
-          className={`text-primary ms-1 ${styles.textRegister}`}
+      </Form.Field>
+      <Form.Field>
+        <span>Do not have an account?</span>
+        <StyledSpan
           onClick={() => setTypeModal(REGISTER)}
         >
           Register
-        </small>
-      </Form.Group>
-    </>
+        </StyledSpan>
+        <br />
+        <StyledSpan
+          onClick={() => setTypeModal(FORGOT_PASSWORD)}
+        >
+          Forgot password?
+        </StyledSpan>
+      </Form.Field>
+    </Form>
   )
 }
 

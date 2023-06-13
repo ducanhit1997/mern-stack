@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
 import store from '@/redux/store';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import type { AppProps } from 'next/app'
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { useIdleTimer } from 'react-idle-timer';
 import Cookies from 'js-cookie';
+import 'semantic-ui-css/semantic.min.css'
 
 const reloadSession = (e: any ) => {
   if (e.key === 'sessionUuid') {

@@ -1,16 +1,20 @@
 import { LOGIN, REGISTER } from "@/const";
 import Cookies from "js-cookie";
 import { FC, useState } from "react";
-import { Button, Container, Dropdown, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Dropdown, Menu } from 'semantic-ui-react'
 import ModalAuth from "../modals/auth";
 import { v4 as uuid } from 'uuid';
+import styled from "styled-components";
 
 type HeaderProps = {
   loginInfo: any
 }
 
-const Header: FC<HeaderProps> = (props) => {
+const StyledButtonSignUp = styled(Button)`
+  margin-left: 5px !important;
+`;
 
+const Header: FC<HeaderProps> = (props) => {
   const { loginInfo } = props;
   const [openModalAuth, setOpenModalAuth] = useState<boolean>(false)
   const [typeModal, setTypeModal] = useState<string>()
@@ -27,38 +31,35 @@ const Header: FC<HeaderProps> = (props) => {
   }
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Toggle aria-controls="navbarTogglerDemo03" />
-        <Navbar.Brand href="#">TGDĐ</Navbar.Brand>
-        <Navbar.Collapse id="navbarTogglerDemo03">
-          <Nav className="me-auto mb-2 mb-lg-0">
-            <Nav.Link href="#" active>Home</Nav.Link>
-            <Nav.Link href="#">Link</Nav.Link>
-            <Nav.Link href="#" disabled>Disabled</Nav.Link>
-          </Nav>
-          <Nav className="ms-auto mb-2 mb-lg-0">
-
-            {loginInfo ?
-              <Dropdown>
-                <Dropdown.Toggle id="dropdown-basic">
-                  {loginInfo.fullname}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item>User info</Dropdown.Item>
-                  <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown> :
-              <>
-                <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(REGISTER)}>Register</Button>
-                <Button variant="outline-success" className="ms-2" onClick={() => toggleModalAuth(LOGIN)}>Login</Button>
-              </>
-            }
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-      <ModalAuth show={openModalAuth} handleClose={() => setOpenModalAuth(false)} typeModal={typeModal} setTypeModal={setTypeModal} />
-    </Navbar>
+    <>
+      <Menu size='small'>
+        <Container>
+          <Menu.Item position='left'
+            name='home'
+          />
+          <Menu.Menu position='right'>
+            <Dropdown item text='Language'>
+              <Dropdown.Menu>
+                <Dropdown.Item>English</Dropdown.Item>
+                <Dropdown.Item>Russian</Dropdown.Item>
+                <Dropdown.Item>Spanish</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+            <Menu.Item>
+              <Button primary onClick={() => toggleModalAuth(LOGIN)}>Sign In</Button>
+              <StyledButtonSignUp color='teal' onClick={() => toggleModalAuth(REGISTER)}>Sign Up</StyledButtonSignUp>
+            </Menu.Item>
+            <Dropdown item text='Hi: Phan Đức Anh'>
+              <Dropdown.Menu>
+                <Dropdown.Item>Info user</Dropdown.Item>
+                <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Menu.Menu>
+        </Container >
+      </Menu>
+      <ModalAuth openModalAuth={openModalAuth} setOpenModalAuth={setOpenModalAuth} typeModal={typeModal} setTypeModal={setTypeModal} />
+    </>
   )
 }
 export default Header;
