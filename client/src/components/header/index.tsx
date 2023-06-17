@@ -1,7 +1,7 @@
 import { LOGIN, REGISTER } from "@/const";
 import Cookies from "js-cookie";
 import { FC, useState } from "react";
-import { Button, Container, Dropdown, Menu } from 'semantic-ui-react'
+import { Button, Container, Dropdown, Icon, Input, Label, Menu } from 'semantic-ui-react'
 import ModalAuth from "../modals/auth";
 import { v4 as uuid } from 'uuid';
 import styled from "styled-components";
@@ -14,10 +14,39 @@ const StyledButtonSignUp = styled(Button)`
   margin-left: 5px !important;
 `;
 
+const StyledInputSearch = styled(Input)`
+  margin-top: 5px;
+  width: 300px;
+`;
+
+const StyledLabel = styled(Label)`
+  position: absolute !important;
+  height: 20px !important;
+  margin-bottom: 28px !important;
+  cursor: pointer !important;
+  width: ${({ count }) => (count >= 10 ? '30px !important' : '25px !important')};
+`;
+
+const StyledIcon = styled(Icon)`
+  cursor: pointer;
+`
+
+const StyledDropdownMenu = styled(Dropdown.Menu)`
+  &&& .icon::before,
+  &&& .icon::after {
+    display: none !important;
+  }
+`
+
 const Header: FC<HeaderProps> = (props) => {
   const { loginInfo } = props;
   const [openModalAuth, setOpenModalAuth] = useState<boolean>(false)
   const [typeModal, setTypeModal] = useState<string>()
+  const [openNotify, setOpenNotify] = useState(false);
+
+  const handleOpenNotify = () => {
+    setOpenNotify(!openNotify);
+  };
 
   const toggleModalAuth = (type: string) => {
     setTypeModal(type)
@@ -32,11 +61,16 @@ const Header: FC<HeaderProps> = (props) => {
 
   return (
     <>
-      <Menu size='small'>
+      <Menu size='large'>
         <Container>
           <Menu.Item position='left'
             name='home'
           />
+          <Menu.Menu>
+            <StyledInputSearch
+              size='small' icon='search' placeholder='Search...'
+            />
+          </Menu.Menu>
           <Menu.Menu position='right'>
             <Dropdown item text='Language'>
               <Dropdown.Menu>
@@ -45,16 +79,29 @@ const Header: FC<HeaderProps> = (props) => {
                 <Dropdown.Item>Spanish</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Dropdown item text='Language' trigger={
+              <>
+                <StyledIcon name='bell' />
+                <StyledLabel color='red' count={2}>
+                  2
+                </StyledLabel>
+              </>
+            }>
+              <StyledDropdownMenu direction="left">
+                <Dropdown.Item><small>Bạn đã đặt hàng thành công</small></Dropdown.Item>
+                <Dropdown.Item><small>Bạn có mã khuyến mãi mới</small></Dropdown.Item>
+              </StyledDropdownMenu>
+            </Dropdown>
             <Menu.Item>
               <Button primary onClick={() => toggleModalAuth(LOGIN)}>Sign In</Button>
               <StyledButtonSignUp color='teal' onClick={() => toggleModalAuth(REGISTER)}>Sign Up</StyledButtonSignUp>
             </Menu.Item>
-            <Dropdown item text='Hi: Phan Đức Anh'>
+            {/* <Dropdown item text='Hi: Phan Đức Anh'>
               <Dropdown.Menu>
                 <Dropdown.Item>Info user</Dropdown.Item>
                 <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
           </Menu.Menu>
         </Container >
       </Menu>

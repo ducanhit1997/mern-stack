@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import { useIdleTimer } from 'react-idle-timer';
 import Cookies from 'js-cookie';
 import 'semantic-ui-css/semantic.min.css'
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 const reloadSession = (e: any ) => {
   if (e.key === 'sessionUuid') {
