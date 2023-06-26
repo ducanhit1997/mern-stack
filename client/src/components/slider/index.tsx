@@ -53,8 +53,8 @@ export const Banner = () => {
       onMouseEnter={() => setShowButtonPrevNext(true)}
     >
       <Slider {...settings}>
-        {listBanners.map((x) => (
-         <img className="d-block w-100" src={x} alt={x} />
+        {listBanners.map((x, idx) => (
+         <img className="d-block w-100" src={x} alt={x} key={idx}/>
         ))}
       </Slider>
     </Container>

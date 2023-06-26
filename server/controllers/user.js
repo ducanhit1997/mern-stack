@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
     if (user) {
       return res.status(400).send({
         status: false,
-        message: `Failed! ${user.username === username ? 'Username' : 'Email'} is already in use!`
+        message: `${user.username === username ? 'Username' : 'Email'} is already in use!`
       })
     }
     const response = await User.create({ ...req.body, password: bcrypt.hashSync(req.body.password, 8) });
@@ -25,7 +25,7 @@ exports.signup = async (req, res) => {
       response
     })
   } catch (error) {
-    res.status(500).send({ status: false, message: 'Internal server error' });
+    res.status(500).send({ status: false, message: error });
   }
 }
 

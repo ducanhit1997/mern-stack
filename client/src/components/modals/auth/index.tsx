@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import { Form, Grid, Icon, Image, Modal } from "semantic-ui-react";
 import { FORGOT_PASSWORD, LOGIN, REGISTER } from "@/const";
 import { useForm } from "react-hook-form";
 import ButtonLoading from "@/components/buttons/loading";
@@ -10,8 +9,10 @@ import { signIn, signUp } from "@/services/auth";
 import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { v4 as uuid } from "uuid";
-import styled from "styled-components";
 import ForgotPassword from "./forgotPassword";
+import { Form, Modal, Row, Col, Alert } from 'antd';
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { showNotification } from "@/helpers";
 
 type ModalAuthProps = {
   openModalAuth: boolean;
@@ -32,25 +33,13 @@ type DataSubmitLogin = {
   password: string;
 };
 
-const StyledImage = styled(Image)`
-  height: 100%;
-`;
-
-const StyledIcon = styled(Icon)`
-  cursor: pointer;
-`;
-
 const ModalAuth: FC<ModalAuthProps> = (props) => {
   const { openModalAuth, setOpenModalAuth, typeModal, setTypeModal } = props;
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<DataSubmitLogin | DataSubmitRegister>();
+
   const [loading, setLoading] = useState<boolean>(false);
+  const [messageError, setMessageError] = useState<string>();
   const { t } = useTranslation();
+  const [form] = Form.useForm();
 
   const onRegister = (data: DataSubmitRegister) => {
     const payload = {
@@ -59,13 +48,14 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
       email: data.email,
       password: data.password,
     };
+    // const payload = { "username": "da1", "fullname": "DA", "email": "da1@gmail.com", "password": "Chelsea1909@" }
     signUp(payload)
       .then((res) => {
         if (res.status) {
           toast("Register sucessfully!");
           setOpenModalAuth(false);
         } else {
-          toast(res.message);
+          setMessageError(res.message);
         }
       })
       .catch((error) => console.log(error))
@@ -89,77 +79,77 @@ const ModalAuth: FC<ModalAuthProps> = (props) => {
           toast(res.message);
         }
       })
-      .catch((error) => console.log(error))
+      .catch((error) => {
+        showNotification(
+          'Thông báo',
+          error,
+          2
+        );
+      })
       .finally(() => {
         setLoading(false);
       });
   };
 
-  const onSubmit = (data: DataSubmitLogin | DataSubmitRegister) => {
+  const onFinish = (data: DataSubmitLogin | DataSubmitRegister) => {
     setLoading(true);
     typeModal === LOGIN
       ? onLogin(data)
       : onRegister(data as DataSubmitRegister);
   };
 
+  const onFinishFailed = (errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  };
+
   useEffect(() => {
-    if (openModalAuth) reset();
-  }, [reset, openModalAuth, typeModal]);
+    if (openModalAuth) form.resetFields();
+  }, [openModalAuth, typeModal]);
 
   return (
     <Modal
-      onClose={() => setOpenModalAuth(false)}
-      onOpen={() => setOpenModalAuth(true)}
       open={openModalAuth}
-      size="small"
+      onCancel={() => setOpenModalAuth(false)}
+      footer={null}
+      width={800}
     >
-      <Modal.Header>
-        {typeModal === FORGOT_PASSWORD && <StyledIcon name="arrow left" size="small" onClick={() => setTypeModal(LOGIN)} />}{" "}
-        {typeModal === LOGIN
-          ? "Login"
-          : typeModal === REGISTER
-          ? "Register"
-          : "Forgot password"}
-      </Modal.Header>
-      <Modal.Content image>
-        <Grid divided="vertically">
-          <Grid.Row columns={2}>
-            <Grid.Column>
-              <StyledImage src="https://react.semantic-ui.com/images/wireframe/paragraph.png" />
-            </Grid.Column>
-            <Grid.Column>
-              <Modal.Description>
-                <Form onSubmit={handleSubmit(onSubmit)}>
-                  {typeModal === LOGIN && (
-                    <LoginForm
-                      errors={errors}
-                      register={register}
-                      setTypeModal={setTypeModal}
-                    />
-                  )}
-                  {typeModal === REGISTER && (
-                    <RegisterForm
-                      errors={errors}
-                      register={register}
-                      setTypeModal={setTypeModal}
-                      watch={watch}
-                    />
-                  )}
-                  {typeModal === FORGOT_PASSWORD && (
-                    <ForgotPassword
-                      errors={errors}
-                      register={register}
-                      setTypeModal={setTypeModal}
-                    />
-                  )}
-                  <ButtonLoading loading={loading} />
-                </Form>
-              </Modal.Description>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Modal.Content>
-    </Modal>
+      <Row>
+        <Col span={13}>col-12</Col>
+        <Col span={11}>
+          <Form
+            name="basic"
+            style={{ maxWidth: 600 }}
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            layout="vertical"
+            form={form}
+          >
+            {typeModal === LOGIN
+              ? <h5>Login</h5>
+              : typeModal === REGISTER
+                ? <h5>Register</h5>
+                : <h5><ArrowLeftOutlined onClick={() => setTypeModal(LOGIN)} /> Forgot password</h5>}
+            {messageError && typeModal === REGISTER && <Alert message={messageError} type="error" />}
+            {typeModal === LOGIN && 
+              <LoginForm
+                setTypeModal={setTypeModal}
+              />
+            }
+            {typeModal === REGISTER && 
+              <RegisterForm
+                setTypeModal={setTypeModal}
+              />
+            }
+            {typeModal === FORGOT_PASSWORD &&
+              <ForgotPassword setTypeModal={setTypeModal} />
+            }
+            <ButtonLoading loading={loading} className="mt-2" />
+          </Form>
+        </Col>
+      </Row>
+    </Modal >
   );
 };
 

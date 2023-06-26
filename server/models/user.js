@@ -15,17 +15,13 @@ var userSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  mobile: {
-    type: String,
-    unique: true,
-  },
   password: {
     type: String,
     required: true,
   },
   refresh_token: {
     type: String,
-    required: true,
+    required: false,
   },
   role: {
     type: String,

@@ -6,11 +6,10 @@ import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { useIdleTimer } from 'react-idle-timer';
 import Cookies from 'js-cookie';
-import 'semantic-ui-css/semantic.min.css'
-import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
+import 'bootstrap/dist/css/bootstrap.css';
 
-const reloadSession = (e: any ) => {
+const reloadSession = (e: any) => {
   if (e.key === 'sessionUuid') {
     window.location.reload();
   }
@@ -42,12 +41,6 @@ export default function App({ Component, pageProps }: AppProps) {
     <Provider store={store}>
       <>
         <Component {...pageProps} />
-        <ToastContainer 
-          autoClose={2000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick 
-        />
       </>
     </Provider>
   );

@@ -1,14 +1,9 @@
 import { FC } from "react";
-import styled from "styled-components";
 
 type FeedbackProps = {
   name: String;
   errorData: any;
 }
-
-const StyledFeedback = styled.span`
-  color: #db2828;
-`;
 
 const Feedback: FC<FeedbackProps> = (props) => {
   const { name, errorData } = props;
@@ -18,14 +13,14 @@ const Feedback: FC<FeedbackProps> = (props) => {
   return (
     <>
       {errorData.type === 'required' &&
-        <StyledFeedback>
+        <span>
           {name} is required!
-        </StyledFeedback>
+        </span>
       }
       {(errorData.type === 'validate' || errorData.type === 'pattern' || errorData.type === 'minLength' || errorData.type === 'maxLength') &&
-        <StyledFeedback>
+        <span>
           {errorData.message}!
-        </StyledFeedback>
+        </span>
       }
     </>
   );

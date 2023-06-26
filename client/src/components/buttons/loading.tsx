@@ -1,27 +1,20 @@
 import { FC } from "react"
-import { Button } from 'semantic-ui-react'
-import styled from 'styled-components'
+import { Button } from 'antd';
 
 type ButtonLoadingProps = {
   loading?: boolean;
   label?: string;
   className?: string;
-  variant?: string;
+  type?: string;
 }
 
-const StyledButton = styled(Button)`
-  &&& {
-    margin-top: 10px;
-  }
-`;
-
 const ButtonLoading: FC<ButtonLoadingProps> = (props) => {
-  const { loading, label } = props
+  const { loading, label, className } = props
 
   return (
-    <StyledButton primary type="submit" loading={loading}>
+    <Button type="primary" htmlType="submit" loading={loading} className={className}>
       <span className="ms-1">{label}</span>
-    </StyledButton>
+    </Button>
   );
 }
 
@@ -29,7 +22,7 @@ export default ButtonLoading;
 
 ButtonLoading.defaultProps = {
   label: 'Submit',
-  variant: 'primary'
+  type: 'primary'
 }
 
 
